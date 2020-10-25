@@ -11,6 +11,7 @@
             name="surname"
             v-model="surname"
             @blur="$v.surname.$touch()"
+            @keydown="preventSubmit($event)"
             :class="{ 'form-input-invalid': $v.surname.$error }"
           />
           <div class="isInvalid" v-if="!$v.surname.required">
@@ -27,6 +28,7 @@
             name="name"
             v-model="name"
             @blur="$v.name.$touch()"
+            @keydown="preventSubmit($event)"
             :class="{ 'form-input-invalid': $v.name.$error }"
           />
           <div class="isInvalid" v-if="!$v.name.required">
@@ -36,7 +38,12 @@
         </div>
 
         <div class="form-input-cover">
-          <input class="form-input" type="text" id="fathersname" />
+          <input
+            class="form-input"
+            type="text"
+            id="fathersname"
+            @keydown="preventSubmit($event)"
+          />
           <label for="fathersname">Отчество:</label>
         </div>
 
@@ -47,6 +54,7 @@
             id="birth"
             v-model="birth"
             @blur="$v.birth.$touch()"
+            @keydown="preventSubmit($event)"
             :class="{ 'form-input-invalid': $v.birth.$error }"
           />
           <div class="isInvalid" v-if="!$v.birth.required">
@@ -64,6 +72,7 @@
             v-model="phone"
             @blur="$v.phone.$touch()"
             :class="{ 'form-input-invalid': $v.phone.$error }"
+            @keydown="preventSubmit($event)"
           />
           <div class="isInvalid" v-if="!$v.phone.required">
             Необходимо заполнить данное поле
@@ -216,6 +225,7 @@
             type="number"
             name="address-index"
             id="address-index"
+            @keydown="preventSubmit($event)"
           /><label for="address-index">Индекс:</label>
         </div>
 
@@ -226,12 +236,19 @@
             value=""
             name="country"
             id="country"
+            @keydown="preventSubmit($event)"
           />
           <label for="country">Страна:</label>
         </div>
 
         <div class="form-input-cover">
-          <input class="form-input" type="text" name="state" id="state" />
+          <input
+            class="form-input"
+            type="text"
+            name="state"
+            id="state"
+            @keydown="preventSubmit($event)"
+          />
           <label for="state">Область:</label>
         </div>
 
@@ -243,6 +260,7 @@
             id="city"
             v-model="city"
             @blur="$v.city.$touch()"
+            @keydown="preventSubmit($event)"
             :class="{ 'form-input-invalid': $v.city.$error }"
           />
           <div class="isInvalid" v-if="!$v.city.required">
@@ -255,12 +273,24 @@
         </div>
 
         <div class="form-input-cover">
-          <input class="form-input" type="text" name="street" id="street" />
+          <input
+            class="form-input"
+            type="text"
+            name="street"
+            id="street"
+            @keydown="preventSubmit($event)"
+          />
           <label for="street">Улица:</label>
         </div>
 
         <div class="form-input-cover">
-          <input class="form-input" type="text" name="building" id="building" />
+          <input
+            class="form-input"
+            type="text"
+            name="building"
+            id="building"
+            @keydown="preventSubmit($event)"
+          />
           <label for="building">Дом:</label>
         </div>
       </fieldset>
@@ -294,6 +324,7 @@
             type="text"
             name="serial-number"
             id="serial-number"
+            @keydown="preventSubmit($event)"
           />
           <label for="serial-number">Серия:</label>
         </div>
@@ -304,6 +335,7 @@
             type="text"
             name="doc-number"
             id="doc-number"
+            @keydown="preventSubmit($event)"
           />
           <label for="doc-number">Номер:</label>
         </div>
@@ -314,6 +346,7 @@
             type="text"
             name="where-did-you-get-it"
             id="where-did-you-get-it"
+            @keydown="preventSubmit($event)"
           />
           <label for="where-did-you-get-it">Кем выдан:</label>
         </div>
@@ -398,6 +431,12 @@ export default {
     },
   },
   methods: {
+    preventSubmit($event) {
+      if ($event.keyCode == 13) {
+        $event.preventDefault();
+        return false;
+      }
+    },
     submit() {
       const success = document.querySelector(".submitStatus--success");
 
